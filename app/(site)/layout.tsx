@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
@@ -28,6 +29,8 @@ const orgJsonLd = {
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <link rel="preload" as="image" href={`${BASE}/img/hero-poster-sm.jpg`} media="(max-width: 820px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={`${BASE}/img/hero-poster.jpg`} media="(min-width: 821px)" fetchPriority="high" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       <Loader />
       <Header />

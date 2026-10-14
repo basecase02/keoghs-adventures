@@ -4,8 +4,8 @@ import { BASE } from "@/lib/base";
 
 /**
  * Home hero background. The poster image paints instantly; the video is
- * attached only after the page has loaded, sized to the screen (0.7 MB on
- * phones, 2 MB on desktop), and skipped entirely for data-saver or
+ * attached only after the page has loaded, sized to the screen (1.6 MB on
+ * phones, 3.8 MB laptops, 7.2 MB large screens), and skipped for data-saver or
  * reduced-motion visitors.
  */
 export default function HeroVideo() {
@@ -17,12 +17,15 @@ export default function HeroVideo() {
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
     if (conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType || "")) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const pick = () => setSrc(`${BASE}/video/${window.innerWidth <= 820 ? "hero-sm" : "hero"}.mp4`);
-    // wait for the page to finish loading so the video never competes with text, fonts and the poster
-    if (document.readyState === "complete") { const t = setTimeout(pick, 300); return () => clearTimeout(t); }
-    const onLoad = () => setTimeout(pick, 300);
-    window.addEventListener("load", onLoad, { once: true });
-    return () => window.removeEventListener("load", onLoad);
+    // phones 854p, laptops 1280p, big/high-res screens full 1080p; each starts playing while it downloads
+    const pick = () => {
+      const w = window.innerWidth, px = w * Math.min(window.devicePixelRatio || 1, 2);
+      setSrc(`${BASE}/video/${w <= 820 ? "hero-sm" : px > 1700 && w > 1100 ? "hero-1080" : "hero"}.mp4`);
+    };
+    // start right after the first paint (poster already on screen); the file is
+    // "fast start" encoded, so it plays as soon as the first part has arrived
+    const raf = requestAnimationFrame(() => requestAnimationFrame(pick));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   useEffect(() => { if (src) ref.current?.play().catch(() => {}); }, [src]);
