@@ -8,6 +8,7 @@ import { Icon } from "@/lib/icons";
 import TourCard from "@/components/site/TourCard";
 import Carousel from "@/components/site/Carousel";
 import RouteMap from "@/components/site/RouteMap";
+import HeroVideo from "@/components/site/HeroVideo";
 import Faq from "@/components/site/Faq";
 import { MONTHS, TODAY, parseD } from "@/lib/utils";
 
@@ -44,14 +45,7 @@ export default function Home() {
   return (
     <>
       <section className="hero" aria-label="Welcome">
-        <div className="hero-img">
-          {/* Licensed Magnific stock footage. Muted + playsInline so it autoplays on phones; the poster shows while it loads and for reduced-motion users. */}
-          <video className="on" autoPlay muted loop playsInline preload="metadata" poster={`${BASE}/img/hero-poster.jpg`} aria-hidden="true">
-            <source src={`${BASE}/video/hero.webm`} type="video/webm" />
-            <source src={`${BASE}/video/hero.mp4`} type="video/mp4" />
-          </video>
-          <img className="hero-still" src={`${BASE}/img/hero-poster.jpg`} alt="A 4WD driving a red dirt track through the Australian outback" fetchPriority="high" />
-        </div>
+        <div className="hero-img"><HeroVideo /></div>
         <div className="wrap hero-in">
           <div className="hero-copy">
             <span className="kicker" style={{ color: "var(--ochre)" }}>Small-group 4WD tours · Western Australia</span>

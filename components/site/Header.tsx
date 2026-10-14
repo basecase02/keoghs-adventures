@@ -67,8 +67,8 @@ export default function Header() {
         </div>
       </header>
 
-      <div className={`mnav ${open ? "open" : ""}`} aria-hidden={!open} role="dialog" aria-label="Menu">
-        <img src={`${BASE}/img/canning-red-dune.jpg`} alt="" />
+      <div className={`mnav ${open ? "open" : ""}`} aria-hidden={!open} role="dialog" aria-label="Menu" onClick={(e) => { if ((e.target as HTMLElement).closest("a")) setOpen(false); }}>
+        <img src={`${BASE}/img/canning-red-dune.jpg`} alt="" loading="lazy" decoding="async" />
         <div className="top"><img src={`${BASE}/img/logo.png`} alt="Keogh's Adventures" /><button className="x" aria-label="Close menu" onClick={() => setOpen(false)}><Icon.close /></button></div>
         <ul>
           <li><Link href="/">Home</Link></li>
