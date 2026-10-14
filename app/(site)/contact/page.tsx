@@ -27,7 +27,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="phead"><img src={`${BASE}/img/boab-tree-guests.jpg`} alt="" style={{ objectPosition: "center 35%" }} /><div className="wrap">
+      <section className="phead"><img src={`${BASE}/img/stock-campfire-stars.jpg`} alt="A 4WD and campfire under a starry outback sky" style={{ objectPosition: "60% 92%" }} /><div className="wrap">
         <div className="crumbs"><Link href="/">Home</Link><span>/</span><span>Contact</span></div>
         <h1 className="t-hero">Let&apos;s plan your <em>trip</em>.</h1>
         <p>A question about a tour, your vehicle, or a private trip for your crew. Tony answers every message himself.</p>

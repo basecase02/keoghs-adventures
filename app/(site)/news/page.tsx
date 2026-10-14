@@ -8,7 +8,7 @@ export default function NewsPage() {
   const { s } = useStore();
   return (
     <>
-      <section className="phead"><img src={`${BASE}/img/canning-red-dune.jpg`} alt="" /><div className="wrap">
+      <section className="phead"><img src={`${BASE}/img/stock-convoy-desert.jpg`} alt="" /><div className="wrap">
         <div className="crumbs"><Link href="/">Home</Link><span>/</span><span>Trip news</span></div>
         <h1 className="t-hero">Notes from the <em>track</em></h1>
         <p>Trip reports, new vehicles and what&apos;s coming next.</p>

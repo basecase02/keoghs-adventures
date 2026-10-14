@@ -1,7 +1,8 @@
 "use client";
+import { tourPath, useRouteId } from "@/lib/routes";
 import { BASE } from "@/lib/base";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useUI } from "@/lib/ui";
@@ -16,7 +17,7 @@ const unlines = (s: string) => s.split("\n").map((x) => x.trim()).filter(Boolean
 const clone = <T,>(o: T): T => JSON.parse(JSON.stringify(o));
 
 export default function TripEditor() {
-  const { id } = useParams<{ id: string }>();
+  const id = useRouteId();
   const { s, update, ready } = useStore();
   const { toast, confirm } = useUI();
   const router = useRouter();
@@ -49,7 +50,7 @@ export default function TripEditor() {
       <div className="ahead">
         <Link className="link small" href="/admin/tours" style={{ justifySelf: "start" }}>← All trips</Link>
         <h1>{d.name || "New trip"}</h1>
-        <p>Open a section, make your change, then press Save. <Link className="link" href={`/tours/${id}`} target="_blank">See it on the website</Link></p>
+        <p>Open a section, make your change, then press Save. <Link className="link" href={tourPath(id)} target="_blank">See it on the website</Link></p>
       </div>
 
       <div className="acard" style={{ gridTemplateColumns: "1fr auto", alignItems: "center" }}>

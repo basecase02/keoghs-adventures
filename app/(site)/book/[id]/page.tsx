@@ -1,7 +1,8 @@
 "use client";
+import { tourPath, useRouteId } from "@/lib/routes";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { useUI } from "@/lib/ui";
 import { Icon } from "@/lib/icons";
@@ -16,7 +17,7 @@ interface Draft {
 const STEPS = ["Trip", "Your details", "Payment"];
 
 function BookInner() {
-  const { id } = useParams<{ id: string }>();
+  const id = useRouteId();
   const q = useSearchParams();
   const { s, update } = useStore();
   const { toast } = useUI();
@@ -106,7 +107,7 @@ function BookInner() {
 
   return (
     <section className="sec s-paper light book-page" style={{ minHeight: "100svh" }}><div className="wrap">
-      <div className="crumbs dark" style={{ marginBottom: 14 }}><Link href="/tours">Tours</Link><span>/</span><Link href={`/tours/${t.id}`}>{t.short}</Link><span>/</span><span>Book</span></div>
+      <div className="crumbs dark" style={{ marginBottom: 14 }}><Link href="/tours">Tours</Link><span>/</span><Link href={tourPath(t.id)}>{t.short}</Link><span>/</span><span>Book</span></div>
       <div className="steps">{STEPS.map((x, i) => <span key={x} style={{ display: "contents" }}>{i > 0 && <i />}<span className={i + 1 < b.step ? "done" : i + 1 === b.step ? "on" : ""}><b>{i + 1}</b>{x}</span></span>)}</div>
       <div className="booking">
         <div className="stack" style={{ gap: 16 }}>
@@ -125,7 +126,7 @@ function BookInner() {
               {b.style === "tag" && <div className="row between"><span>Vehicles</span>
                 <span className="qty"><button aria-label="Fewer vehicles" onClick={() => set({ vehicles: Math.max(1, b.vehicles - 1) })}>−</button><span>{b.vehicles}</span><button aria-label="More vehicles" onClick={() => set({ vehicles: Math.min(s.settings.maxGroup, b.vehicles + 1) })}>+</button></span></div>}
             </div>
-            <div className="row between"><Link className="link" href={`/tours/${t.id}`}>Back to the tour</Link><button className="btn btn-primary btn-lg" onClick={toDetails}>Continue</button></div>
+            <div className="row between"><Link className="link" href={tourPath(t.id)}>Back to the tour</Link><button className="btn btn-primary btn-lg" onClick={toDetails}>Continue</button></div>
           </>}
 
           {b.step === 2 && <form className="stack" style={{ gap: 16 }} noValidate onSubmit={toPayment}>

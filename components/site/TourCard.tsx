@@ -1,3 +1,4 @@
+import { tourPath } from "@/lib/routes";
 import Link from "next/link";
 import type { Tour } from "@/lib/types";
 import { Icon } from "@/lib/icons";
@@ -7,7 +8,7 @@ export default function TourCard({ t }: { t: Tour }) {
   const nd = nextDeparture(t);
   const left = nd ? seatsLeft(nd) : 0;
   return (
-    <Link className="tcard" href={`/tours/${t.id}`}>
+    <Link className="tcard" href={tourPath(t.id)}>
       <img src={t.cover} alt={t.name} loading="lazy" />
       <div className="top">
         <span className="chip">{t.days} {t.days === 1 ? "day" : "days"}{nd ? ` · ${fmtShort(nd.date)}` : ""}</span>

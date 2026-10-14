@@ -1,4 +1,5 @@
 "use client";
+import { editPath } from "@/lib/routes";
 import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,7 +15,7 @@ export default function TripsAdmin() {
   const addTour = () => {
     const id = uid("tour-");
     update((st) => { st.tours.push({ id, code: "", name: "New trip", short: "New trip", region: st.regions[0].id, types: ["tag"], days: 3, nights: 2, price: { tag: 990, ride: null }, distanceKm: 300, fuelRangeKm: 200, difficulty: "Easy", startEnd: "Perth → Perth", activities: [], cover: `${BASE}/img/beach-convoy.jpg`, images: [`${BASE}/img/beach-convoy.jpg`], published: false, featured: false, summary: "", description: "", highlights: [], itinerary: [{ day: 1, title: "", text: "" }], inclusions: [], exclusions: [], requirements: [], departures: [] }); });
-    router.push(`/admin/tours/${id}`);
+    router.push(editPath(id));
   };
   return (
     <>
@@ -35,7 +36,7 @@ export default function TripsAdmin() {
                   <button className="sw" role="switch" aria-checked={t.published} onClick={() => { update((st) => { const x = st.tours.find((y) => y.id === t.id)!; x.published = !x.published; }); toast(t.published ? "Hidden from the website" : "Now showing on the website"); }}>
                     <span className="toggle" aria-checked={t.published} />{t.published ? "On website" : "Hidden"}
                   </button>
-                  <Link className="btn btn-soft" href={`/admin/tours/${t.id}`}>Edit</Link>
+                  <Link className="btn btn-soft" href={editPath(t.id)}>Edit</Link>
                 </div>
               </div>
             </article>

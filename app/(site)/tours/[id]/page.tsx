@@ -1,6 +1,7 @@
 "use client";
+import { bookPath, useRouteId } from "@/lib/routes";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { Icon } from "@/lib/icons";
@@ -12,7 +13,7 @@ import { TODAY, addDays, fmtDay, fmtShort, lowestPrice, money, seatsClass, seats
 const TABS = [["overview", "Overview"], ["itinerary", "Day by day"], ["included", "What's included"], ["vehicle", "Your vehicle"], ["faq", "FAQ"]] as const;
 
 export default function TourPage() {
-  const { id } = useParams<{ id: string }>();
+  const id = useRouteId();
   const { s } = useStore();
   const router = useRouter();
   const [tab, setTab] = useState<(typeof TABS)[number][0]>("overview");
@@ -26,7 +27,7 @@ export default function TourPage() {
   const deps = t.departures.filter((d) => d.date >= TODAY).sort((a, b) => a.date.localeCompare(b.date));
   const cur = deps.find((d) => d.id === sel && seatsLeft(d) > 0) || deps.find((d) => seatsLeft(d) > 0);
   const st = s.settings;
-  const book = () => cur && router.push(`/book/${t.id}?dep=${cur.id}`);
+  const book = () => cur && router.push(bookPath(t.id, cur.id));
   const days = allDays ? t.itinerary : t.itinerary.slice(0, 6);
   const related = s.tours.filter((x) => x.published && x.id !== t.id && x.region === t.region).concat(s.tours.filter((x) => x.published && x.id !== t.id && x.region !== t.region)).slice(0, 3);
 

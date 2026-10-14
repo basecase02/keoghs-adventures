@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SEED } from "@/lib/seed";
 import { lowestPrice } from "@/lib/utils";
@@ -42,7 +43,7 @@ export default async function TourLayout({ children, params }: { children: React
   return (
     <>
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
-      {children}
+      <Suspense>{children}</Suspense>
     </>
   );
 }

@@ -11,12 +11,6 @@ import RouteMap from "@/components/site/RouteMap";
 import Faq from "@/components/site/Faq";
 import { MONTHS, TODAY, parseD } from "@/lib/utils";
 
-const SLIDES = [
-  { src: `${BASE}/img/canning-convoy.jpg`, cap: "Canning Stock Route" },
-  { src: `${BASE}/img/mitchell-falls.jpg`, cap: "Mitchell Falls, Kimberley" },
-  { src: `${BASE}/img/patrol-beach-dune.jpg`, cap: "Yeagarup Dunes, Southwest" },
-  { src: `${BASE}/img/pilbara-ranges-aerial.jpg`, cap: "First light over the ranges" },
-];
 const NAMES = ["Canning Stock Route", "Mitchell Falls", "Gibb River Road", "Bungle Bungles", "Wolfe Creek", "Cape Arid", "Lake Argyle", "Durba Springs"];
 const DAY = [
   { time: "5:45am", img: "pilbara-ranges-aerial", h: "Billy tea at first light", p: "The ranges turn pink, the billy boils, and nobody has looked at a phone in days." },
@@ -31,10 +25,8 @@ const COLLAGE = ["bell-gorge", "tunnel-creek-wading", "rock-art-cave", "bungle-b
 export default function Home() {
   const { s } = useStore();
   const router = useRouter();
-  const [slide, setSlide] = useState(0);
   const [rev, setRev] = useState(0);
   const [f, setF] = useState({ region: "", type: "", month: "" });
-  useEffect(() => { const t = setInterval(() => setSlide((i) => (i + 1) % SLIDES.length), 6500); return () => clearInterval(t); }, []);
   useEffect(() => { const t = setInterval(() => setRev((i) => (i + 1) % Math.max(1, s.reviews.length)), 8000); return () => clearInterval(t); }, [s.reviews.length]);
 
   const tours = s.tours.filter((t) => t.published);
@@ -52,7 +44,14 @@ export default function Home() {
   return (
     <>
       <section className="hero" aria-label="Welcome">
-        <div className="hero-img">{SLIDES.map((x, i) => <img key={x.src} src={x.src} alt={i === 0 ? "A Keogh's Adventures convoy on the red sand of the Canning Stock Route" : ""} className={i === slide ? "on" : ""} fetchPriority={i === 0 ? "high" : "low"} />)}</div>
+        <div className="hero-img">
+          {/* Licensed Magnific stock footage. Muted + playsInline so it autoplays on phones; the poster shows while it loads and for reduced-motion users. */}
+          <video className="on" autoPlay muted loop playsInline preload="metadata" poster={`${BASE}/img/hero-poster.jpg`} aria-hidden="true">
+            <source src={`${BASE}/video/hero.webm`} type="video/webm" />
+            <source src={`${BASE}/video/hero.mp4`} type="video/mp4" />
+          </video>
+          <img className="hero-still" src={`${BASE}/img/hero-poster.jpg`} alt="A 4WD driving a red dirt track through the Australian outback" fetchPriority="high" />
+        </div>
         <div className="wrap hero-in">
           <div className="hero-copy">
             <span className="kicker" style={{ color: "var(--ochre)" }}>Small-group 4WD tours · Western Australia</span>
@@ -65,12 +64,6 @@ export default function Home() {
             <div className="ff"><label htmlFor="f-m">When</label><select id="f-m" value={f.month} onChange={(e) => setF({ ...f, month: e.target.value })}><option value="">Any month</option>{months.map((m) => <option key={m} value={m}>{MONTHS[Number(m.slice(5)) - 1]} {m.slice(0, 4)}</option>)}</select></div>
             <button className="btn btn-primary btn-lg" type="submit">Find trips <Icon.arrow /></button>
           </form>
-          <div className="hero-foot">
-            <div className="slides-ctl">
-              <div className="bars">{SLIDES.map((_, i) => <button key={i} className={i === slide ? "on" : ""} aria-label={`Show photo ${i + 1}`} onClick={() => setSlide(i)} />)}</div>
-              <span>{SLIDES[slide].cap}</span>
-            </div>
-          </div>
         </div>
       </section>
 

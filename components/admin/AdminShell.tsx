@@ -14,7 +14,9 @@ const Ctx = createContext<AdminCtx | null>(null);
 export const useAdmin = () => { const c = useContext(Ctx); if (!c) throw new Error("useAdmin outside AdminShell"); return c; };
 
 const NAV: [string, string, IconName][] = [
-  ["", "Home", "home"], ["bookings", "Bookings", "book"], ["tours", "Trips", "tour"], ["website", "Website", "content"], ["settings", "Settings", "set"],
+  ["", "Home", "home"], ["bookings", "Bookings", "book"], ["tours", "Trips", "tour"],
+  // ["website", "Website", "content"], // hidden for now; the page still exists at /admin/website
+  ["settings", "Settings", "set"],
 ];
 
 function Login({ onIn }: { onIn: () => void }) {

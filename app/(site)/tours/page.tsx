@@ -31,21 +31,31 @@ function ToursInner() {
         <p>{head ? head.blurb : "Live prices and seat counts for every departure. Pick a trip to see the full itinerary."}</p>
       </div></section>
       <section className="sec s-night topo" style={{ paddingTop: "clamp(36px,5vw,60px)" }}><div className="wrap">
-        <div className="fbar">
-          <div className="grp">
-            <Link className={`pill ${!type ? "on" : ""}`} href={href({ type: "" })}>Any style</Link>
-            <Link className={`pill ${type === "tag" ? "on" : ""}`} href={href({ type: "tag" })}>Tag along</Link>
-            <Link className={`pill ${type === "ride" ? "on" : ""}`} href={href({ type: "ride" })}>Ride onboard</Link>
+        <div className="tfilter">
+          <div className="rtiles" role="radiogroup" aria-label="Region">
+            <Link role="radio" aria-checked={!region} className={`rtile ${!region ? "on" : ""}`} href={href({ region: "" })}>
+              <img src={`${BASE}/img/canning-ranges.jpg`} alt="" /><span><b>All of WA</b><small>{all.length} trips</small></span>
+            </Link>
+            {s.regions.map((r) => (
+              <Link key={r.id} role="radio" aria-checked={region === r.id} className={`rtile ${region === r.id ? "on" : ""}`} href={href({ region: r.id })}>
+                <img src={r.img} alt="" loading="lazy" /><span><b>{r.id}</b><small>{(() => { const n = all.filter((t) => t.region === r.id).length; return `${n} ${n === 1 ? "trip" : "trips"}`; })()}</small></span>
+              </Link>
+            ))}
           </div>
-          <div className="grp">
-            <Link className={`pill ${!region ? "on" : ""}`} href={href({ region: "" })}>All regions</Link>
-            {s.regions.map((r) => <Link key={r.id} className={`pill ${region === r.id ? "on" : ""}`} href={href({ region: r.id })}>{r.id}</Link>)}
+          <div className="trow2">
+            <div className="seg3" role="radiogroup" aria-label="How you travel">
+              {([["", "Any style"], ["tag", "Tag along"], ["ride", "Ride onboard"]] as const).map(([k, l]) => (
+                <Link key={l} role="radio" aria-checked={type === k} className={type === k ? "on" : ""} href={href({ type: k })}>{l}</Link>
+              ))}
+            </div>
+            <label className="msel"><span>When</span>
+              <select aria-label="Month" value={month} onChange={(e) => router.push(href({ month: e.target.value }))}>
+                <option value="">Any month</option>
+                {months.map((m) => <option key={m} value={m}>{MONTHS[Number(m.slice(5)) - 1]} {m.slice(0, 4)}</option>)}
+              </select>
+            </label>
+            <span className="tcount"><b>{tours.length}</b> {tours.length === 1 ? "trip" : "trips"}{(type || region || month) && <> · <Link href="/tours">Clear filters</Link></>}</span>
           </div>
-          <select aria-label="Month" value={month} onChange={(e) => router.push(href({ month: e.target.value }))}>
-            <option value="">Any month</option>
-            {months.map((m) => <option key={m} value={m}>{MONTHS[Number(m.slice(5)) - 1]} {m.slice(0, 4)}</option>)}
-          </select>
-          <span className="count">{tours.length} {tours.length === 1 ? "trip" : "trips"}</span>
         </div>
         {tours.length ? <div className="grid cols-3">{tours.map((t) => <TourCard key={t.id} t={t} />)}</div>
           : <div className="stack" style={{ justifyItems: "start" }}><p className="lede">No trips match those filters yet.</p><Link className="btn btn-primary" href="/tours">Show all tours</Link></div>}
