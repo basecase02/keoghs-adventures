@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 import type { SeedData } from "./types";
 
 
@@ -35,7 +36,7 @@ export const SEED: SeedData = {
       days: 18, nights: 17, price: { tag: 5650, ride: 8950 },
       distanceKm: 1850, fuelRangeKm: 1050, difficulty: "Expedition", startEnd: "Wiluna → Halls Creek",
       activities: ["4WD","Camping","History","Photography","Stargazing"],
-      cover: "/img/canning-convoy.jpg", images: ["/img/canning-convoy.jpg","/img/canning-red-dune.jpg","/img/canning-track.jpg","/img/canning-ranges.jpg","/img/pilbara-ranges-aerial.jpg","/img/wolfe-creek-crater.jpg"],
+      cover: `${BASE}/img/canning-convoy.jpg`, images: [`${BASE}/img/canning-convoy.jpg`,`${BASE}/img/canning-red-dune.jpg`,`${BASE}/img/canning-track.jpg`,`${BASE}/img/canning-ranges.jpg`,`${BASE}/img/pilbara-ranges-aerial.jpg`,`${BASE}/img/wolfe-creek-crater.jpg`],
       published: true, featured: true,
       summary: "Join us for the ADVENTURE of a lifetime as we explore the world's longest and most historical stock route on this 18 day expedition from Wiluna to Halls Creek.",
       description: "The Canning Stock Route is the longest historic stock route in the world: 1,850 km of desert track, 51 wells, and somewhere around 900 sand dunes between Wiluna and Halls Creek. There is no fuel for roughly 1,050 km, no phone signal, and no one else out there but us. That is exactly the point.\n\nWe travel as a small convoy. Tony leads in the Keogh's Adventures Patrol with Starlink, a satellite phone and a full recovery kit. You drive your own prepared 4WD (tag-along) or ride with us (ride-onboard) and we handle route-finding, dune technique, well stops, permits and the nightly camp.",
@@ -73,7 +74,7 @@ export const SEED: SeedData = {
       days: 18, nights: 17, price: { tag: 5650, ride: null },
       distanceKm: 1850, fuelRangeKm: 1050, difficulty: "Expedition", startEnd: "Wiluna → Halls Creek",
       activities: ["4WD","Camping","Jimny owners","Photography"],
-      cover: "/img/canning-track.jpg", images: ["/img/canning-track.jpg","/img/canning-ranges.jpg","/img/canning-red-dune.jpg","/img/pilbara-ranges-aerial.jpg"],
+      cover: `${BASE}/img/canning-track.jpg`, images: [`${BASE}/img/canning-track.jpg`,`${BASE}/img/canning-ranges.jpg`,`${BASE}/img/canning-red-dune.jpg`,`${BASE}/img/pilbara-ranges-aerial.jpg`],
       published: true, featured: false,
       summary: "A Jimny-only convoy across the Canning. Small cars, big dunes, and a route plan built around Jimny fuel range and payload.",
       description: "The little Suzuki is a dune weapon. This departure is built for Jimny owners only: a fuel drop plan that respects the Jimny's range, a packing list that respects its payload, and a convoy pace that lets you enjoy every crest.",
@@ -97,7 +98,7 @@ export const SEED: SeedData = {
       days: 21, nights: 20, price: { tag: 5650, ride: 9450 },
       distanceKm: 1850, fuelRangeKm: 1050, difficulty: "Expedition", startEnd: "Halls Creek → Wiluna",
       activities: ["4WD","Camping","History","Stargazing"],
-      cover: "/img/canning-ranges.jpg", images: ["/img/canning-ranges.jpg","/img/canning-convoy.jpg","/img/wolfe-creek-crater.jpg","/img/pilbara-ranges-aerial.jpg"],
+      cover: `${BASE}/img/canning-ranges.jpg`, images: [`${BASE}/img/canning-ranges.jpg`,`${BASE}/img/canning-convoy.jpg`,`${BASE}/img/wolfe-creek-crater.jpg`,`${BASE}/img/pilbara-ranges-aerial.jpg`],
       published: true, featured: true,
       summary: "21 day desert adventure running the Canning the 'hard way', north to south, with the dunes against you. Ride-onboard seats available; tag-along is waitlist only.",
       description: "Running north to south means the steep faces of the dunes are on your approach. It is the more demanding direction and a favourite with returning guests. Three extra days give us time for Wolfe Creek, the Breaden Hills and a second night at Durba Springs.",
@@ -121,7 +122,7 @@ export const SEED: SeedData = {
       days: 16, nights: 15, price: { tag: 5350, ride: 8450 },
       distanceKm: 2400, fuelRangeKm: 350, difficulty: "Moderate", startEnd: "Broome → Broome",
       activities: ["4WD","Aboriginal art","Hiking","Swimming","Sightseeing","Wildflowers"],
-      cover: "/img/mitchell-falls.jpg", images: ["/img/mitchell-falls.jpg","/img/emma-gorge-falls.jpg","/img/manning-gorge.jpg","/img/windjana-gorge.jpg","/img/lake-argyle-sunset-swim.jpg","/img/bungle-bungles-chasm.jpg","/img/tunnel-creek-wading.jpg","/img/mitchell-falls-helicopter.jpg","/img/kimberley-waterfall.jpg"],
+      cover: `${BASE}/img/mitchell-falls.jpg`, images: [`${BASE}/img/mitchell-falls.jpg`,`${BASE}/img/emma-gorge-falls.jpg`,`${BASE}/img/manning-gorge.jpg`,`${BASE}/img/windjana-gorge.jpg`,`${BASE}/img/lake-argyle-sunset-swim.jpg`,`${BASE}/img/bungle-bungles-chasm.jpg`,`${BASE}/img/tunnel-creek-wading.jpg`,`${BASE}/img/mitchell-falls-helicopter.jpg`,`${BASE}/img/kimberley-waterfall.jpg`],
       published: true, featured: true,
       summary: "Join me for the 16 day ADVENTURE of a lifetime as we explore the hidden Kimberley. Gibb River Road, Mitchell Falls, Lake Argyle, the Bungle Bungles, Wolfe Creek and Mimbi Caves.",
       description: "Sixteen days from Broome and back through the heart of the Kimberley. We run the full Gibb River Road with every gorge worth the walk, head up to Mitchell Falls, float in Lake Argyle at sunset, walk the Bungle Bungles, stand on the rim of Wolfe Creek Crater and finish with the Gooniyandi people at Mimbi Caves.\n\nA 12-day Gibb River Road option is available if you need to be back sooner.",
@@ -159,7 +160,7 @@ export const SEED: SeedData = {
       days: 12, nights: 11, price: { tag: 4350, ride: 6950 },
       distanceKm: 1500, fuelRangeKm: 350, difficulty: "Moderate", startEnd: "Broome → Kununurra",
       activities: ["4WD","Hiking","Swimming","Aboriginal art"],
-      cover: "/img/manning-gorge.jpg", images: ["/img/manning-gorge.jpg","/img/windjana-gorge.jpg","/img/bell-gorge.jpg","/img/galvans-gorge-swim.jpg","/img/tunnel-creek-entrance.jpg","/img/emma-gorge-falls.jpg"],
+      cover: `${BASE}/img/manning-gorge.jpg`, images: [`${BASE}/img/manning-gorge.jpg`,`${BASE}/img/windjana-gorge.jpg`,`${BASE}/img/bell-gorge.jpg`,`${BASE}/img/galvans-gorge-swim.jpg`,`${BASE}/img/tunnel-creek-entrance.jpg`,`${BASE}/img/emma-gorge-falls.jpg`],
       published: true, featured: false,
       summary: "Join us for the 12 day ADVENTURE of a lifetime as we explore The Kimberley along the Gibb River Road, Broome to Kununurra and Lake Argyle.",
       description: "The classic Gibb: 660 km of red dirt between Derby and Kununurra, and every gorge along it. This is the first 12 days of the Kimberley Adventure for guests who need to be home sooner.",
@@ -187,7 +188,7 @@ export const SEED: SeedData = {
       days: 10, nights: 9, price: { tag: 3450, ride: 5450 },
       distanceKm: 1900, fuelRangeKm: 400, difficulty: "Moderate", startEnd: "Norseman → Esperance",
       activities: ["4WD","Beach driving","Whale watching","Camping"],
-      cover: "/img/bunda-cliffs.jpg", images: ["/img/bunda-cliffs.jpg","/img/coastal-track.jpg","/img/beach-convoy.jpg","/img/patrol-sand-tyre.jpg"],
+      cover: `${BASE}/img/bunda-cliffs.jpg`, images: [`${BASE}/img/bunda-cliffs.jpg`,`${BASE}/img/coastal-track.jpg`,`${BASE}/img/beach-convoy.jpg`,`${BASE}/img/patrol-sand-tyre.jpg`],
       published: true, featured: false,
       summary: "Ten days along the edge of the Great Australian Bight: the Nullarbor cliffs, Eyre Bird Observatory, Israelite Bay and Cape Arid, finishing on the white sand of Lucky Bay.",
       description: "The Bight coast is the wildest stretch of coastline in the state. We drop off the Nullarbor onto the old telegraph track, camp above 90-metre cliffs, watch southern right whales from Twilight Cove and thread the sand tracks of Cape Arid to Esperance.",
@@ -212,7 +213,7 @@ export const SEED: SeedData = {
       days: 2, nights: 1, price: { tag: 590, ride: 890 },
       distanceKm: 520, fuelRangeKm: 200, difficulty: "Easy", startEnd: "Pemberton → Pemberton",
       activities: ["Beach driving","Dunes","Forest","Camping"],
-      cover: "/img/patrol-beach-dune.jpg", images: ["/img/patrol-beach-dune.jpg","/img/beach-convoy.jpg","/img/dunes-group.jpg","/img/patrol-sand-tyre.jpg","/img/karri-forest-emu.jpg"],
+      cover: `${BASE}/img/patrol-beach-dune.jpg`, images: [`${BASE}/img/patrol-beach-dune.jpg`,`${BASE}/img/beach-convoy.jpg`,`${BASE}/img/dunes-group.jpg`,`${BASE}/img/patrol-sand-tyre.jpg`,`${BASE}/img/karri-forest-emu.jpg`],
       published: true, featured: false,
       summary: "A weekend of karri forest, giant dunes and empty beaches in D'Entrecasteaux National Park. The perfect first 4WD trip.",
       description: "Yeagarup Dunes, the Warren River mouth, Callcup Hill and Windy Harbour over two days with one night camped behind the dunes. We teach sand driving from scratch, so it suits first-timers and families.",
@@ -236,7 +237,7 @@ export const SEED: SeedData = {
       days: 1, nights: 0, price: { tag: 249, ride: 349 },
       distanceKm: 180, fuelRangeKm: 100, difficulty: "Easy", startEnd: "Pemberton → Pemberton",
       activities: ["Dunes","Forest","Beach"],
-      cover: "/img/dunes-group.jpg", images: ["/img/dunes-group.jpg","/img/karri-forest-emu.jpg","/img/patrol-sand-tyre.jpg"],
+      cover: `${BASE}/img/dunes-group.jpg`, images: [`${BASE}/img/dunes-group.jpg`,`${BASE}/img/karri-forest-emu.jpg`,`${BASE}/img/patrol-sand-tyre.jpg`],
       published: true, featured: false,
       summary: "One big day: karri forest, the Yeagarup Dunes and a beach lunch. Ideal if you want to try 4WD touring before a longer trip.",
       description: "A taster day out of Pemberton. Forest tracks in the morning, the dunes before lunch and the beach after. Ride onboard with Tony or bring your own 4WD.",
@@ -254,10 +255,10 @@ export const SEED: SeedData = {
   ],
 
   regions: [
-    { id: "Canning Stock Route", blurb: "1,850 km. 51 wells. 900 dunes.", img: "/img/pilbara-ranges-aerial.jpg" },
-    { id: "Gibb River Road & Kimberley", blurb: "Gorges, falls, rock art and Lake Argyle.", img: "/img/emma-gorge-falls.jpg" },
-    { id: "Eyre to Esperance", blurb: "Cliffs, whales and the Bight coast.", img: "/img/bunda-cliffs.jpg" },
-    { id: "Southwest Coastal", blurb: "Dunes and karri forest, close to home.", img: "/img/patrol-beach-dune.jpg" }
+    { id: "Canning Stock Route", blurb: "1,850 km. 51 wells. 900 dunes.", img: `${BASE}/img/pilbara-ranges-aerial.jpg` },
+    { id: "Gibb River Road & Kimberley", blurb: "Gorges, falls, rock art and Lake Argyle.", img: `${BASE}/img/emma-gorge-falls.jpg` },
+    { id: "Eyre to Esperance", blurb: "Cliffs, whales and the Bight coast.", img: `${BASE}/img/bunda-cliffs.jpg` },
+    { id: "Southwest Coastal", blurb: "Dunes and karri forest, close to home.", img: `${BASE}/img/patrol-beach-dune.jpg` }
   ],
 
   customers: [
@@ -286,9 +287,9 @@ export const SEED: SeedData = {
 
 
   posts: [
-    { id: "p1", title: "Canning Stock Route May 2026", date: "2026-06-13", cover: "/img/canning-red-dune.jpg", excerpt: "Eighteen days, 900 dunes, zero dramas. The May convoy made it Wiluna to Halls Creek with every vehicle intact and a lot of new friendships.", body: "The May 2026 Canning was one for the books. Six vehicles, twelve guests, and the best conditions we've seen on the route in years after a wet summer: Durba Springs was full, the wells were running and the wildflowers around Well 17 were out early.\n\nSpecial mention to the Harringtons who completed their second Canning with us and to the Patrol, which pulled two recoveries without breaking a sweat. Bookings for June 2027 are open now." },
-    { id: "p2", title: "Canning Stock Route 2025", date: "2025-11-25", cover: "/img/canning-convoy.jpg", excerpt: "A look back at the 2025 crossing: the convoy, the camps and the moment at Well 33 when everyone realised they were halfway.", body: "2025 was the year we introduced Starlink to the convoy and it changed the evenings completely. Guests could send a photo home from the middle of the Gibson Desert. The dunes between Well 41 and 46 were the softest we have driven; tyre pressures went to 14 psi and everyone learnt a lot about momentum." },
-    { id: "p3", title: "New Tour Vehicle Success", date: "2025-11-25", cover: "/img/patrol-new.jpg", excerpt: "Meet the new Keogh's Adventures Nissan Patrol: long-range tanks, Alu-Cab canopy, Starlink and seats for ride-onboard guests.", body: "The new Patrol has been fitted out specifically for ride-onboard guests: three forward-facing seats with proper legroom, dual long-range tanks giving 1,400 km, a 95 L fridge, Alu-Cab canopy with roof-top tent for Tony, Starlink, a satellite phone and a full recovery kit. It did its first Canning in May 2026 and did not miss a beat." }
+    { id: "p1", title: "Canning Stock Route May 2026", date: "2026-06-13", cover: `${BASE}/img/canning-red-dune.jpg`, excerpt: "Eighteen days, 900 dunes, zero dramas. The May convoy made it Wiluna to Halls Creek with every vehicle intact and a lot of new friendships.", body: "The May 2026 Canning was one for the books. Six vehicles, twelve guests, and the best conditions we've seen on the route in years after a wet summer: Durba Springs was full, the wells were running and the wildflowers around Well 17 were out early.\n\nSpecial mention to the Harringtons who completed their second Canning with us and to the Patrol, which pulled two recoveries without breaking a sweat. Bookings for June 2027 are open now." },
+    { id: "p2", title: "Canning Stock Route 2025", date: "2025-11-25", cover: `${BASE}/img/canning-convoy.jpg`, excerpt: "A look back at the 2025 crossing: the convoy, the camps and the moment at Well 33 when everyone realised they were halfway.", body: "2025 was the year we introduced Starlink to the convoy and it changed the evenings completely. Guests could send a photo home from the middle of the Gibson Desert. The dunes between Well 41 and 46 were the softest we have driven; tyre pressures went to 14 psi and everyone learnt a lot about momentum." },
+    { id: "p3", title: "New Tour Vehicle Success", date: "2025-11-25", cover: `${BASE}/img/patrol-new.jpg`, excerpt: "Meet the new Keogh's Adventures Nissan Patrol: long-range tanks, Alu-Cab canopy, Starlink and seats for ride-onboard guests.", body: "The new Patrol has been fitted out specifically for ride-onboard guests: three forward-facing seats with proper legroom, dual long-range tanks giving 1,400 km, a 95 L fridge, Alu-Cab canopy with roof-top tent for Tony, Starlink, a satellite phone and a full recovery kit. It did its first Canning in May 2026 and did not miss a beat." }
   ],
 
   reviews: [

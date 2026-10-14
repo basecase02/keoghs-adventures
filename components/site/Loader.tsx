@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 import Car from "./Car";
 
 /**
@@ -9,7 +10,7 @@ export default function Loader() {
   return (
     <div className="loader" aria-hidden="true">
       <div className="in">
-        <img className="logo" src="/img/logo.png" alt="" />
+        <img className="logo" src={`${BASE}/img/logo.png`} alt="" />
         <div className="road"><div className="car"><Car /></div></div>
         <small>Western Australia · 4WD tours</small>
       </div>

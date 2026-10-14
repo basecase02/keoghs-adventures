@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { useUI } from "@/lib/ui";
@@ -13,12 +14,12 @@ export default function Footer() {
       <div className="wrap">
         <div className="ftop">
           <div>
-            <img className="flogo" src="/img/logo.png" alt="Keogh's Adventures" />
+            <img className="flogo" src={`${BASE}/img/logo.png`} alt="Keogh's Adventures" />
             <p style={{ maxWidth: "34ch" }}>Small-group 4WD tours to the most remote corners of Western Australia, led by Tony Keogh.</p>
             <div className="badges">
-              <img src="/img/badge-quality-tourism.png" alt="Quality Tourism Accredited Business" />
-              <img src="/img/badge-sustainable.png" alt="Sustainable Tourism" />
-              <img src="/img/badge-emissions.png" alt="Tourism Emissions Reduction Commitment" />
+              <img src={`${BASE}/img/badge-quality-tourism.png`} alt="Quality Tourism Accredited Business" />
+              <img src={`${BASE}/img/badge-sustainable.png`} alt="Sustainable Tourism" />
+              <img src={`${BASE}/img/badge-emissions.png`} alt="Tourism Emissions Reduction Commitment" />
             </div>
           </div>
           <nav aria-label="Tours">

@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/store";
@@ -12,7 +13,7 @@ export default function TripsAdmin() {
   const router = useRouter();
   const addTour = () => {
     const id = uid("tour-");
-    update((st) => { st.tours.push({ id, code: "", name: "New trip", short: "New trip", region: st.regions[0].id, types: ["tag"], days: 3, nights: 2, price: { tag: 990, ride: null }, distanceKm: 300, fuelRangeKm: 200, difficulty: "Easy", startEnd: "Perth → Perth", activities: [], cover: "/img/beach-convoy.jpg", images: ["/img/beach-convoy.jpg"], published: false, featured: false, summary: "", description: "", highlights: [], itinerary: [{ day: 1, title: "", text: "" }], inclusions: [], exclusions: [], requirements: [], departures: [] }); });
+    update((st) => { st.tours.push({ id, code: "", name: "New trip", short: "New trip", region: st.regions[0].id, types: ["tag"], days: 3, nights: 2, price: { tag: 990, ride: null }, distanceKm: 300, fuelRangeKm: 200, difficulty: "Easy", startEnd: "Perth → Perth", activities: [], cover: `${BASE}/img/beach-convoy.jpg`, images: [`${BASE}/img/beach-convoy.jpg`], published: false, featured: false, summary: "", description: "", highlights: [], itinerary: [{ day: 1, title: "", text: "" }], inclusions: [], exclusions: [], requirements: [], departures: [] }); });
     router.push(`/admin/tours/${id}`);
   };
   return (

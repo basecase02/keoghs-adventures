@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,7 +25,7 @@ function ToursInner() {
 
   return (
     <>
-      <section className="phead"><img src={head?.img || "/img/canning-ranges.jpg"} alt="" /><div className="wrap">
+      <section className="phead"><img src={head?.img || `${BASE}/img/canning-ranges.jpg`} alt="" /><div className="wrap">
         <div className="crumbs"><Link href="/">Home</Link><span>/</span><span>Tours</span></div>
         <h1 className="t-hero">{title}</h1>
         <p>{head ? head.blurb : "Live prices and seat counts for every departure. Pick a trip to see the full itinerary."}</p>

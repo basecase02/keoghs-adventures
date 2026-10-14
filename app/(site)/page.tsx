@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -11,10 +12,10 @@ import Faq from "@/components/site/Faq";
 import { MONTHS, TODAY, parseD } from "@/lib/utils";
 
 const SLIDES = [
-  { src: "/img/canning-convoy.jpg", cap: "Canning Stock Route" },
-  { src: "/img/mitchell-falls.jpg", cap: "Mitchell Falls, Kimberley" },
-  { src: "/img/patrol-beach-dune.jpg", cap: "Yeagarup Dunes, Southwest" },
-  { src: "/img/pilbara-ranges-aerial.jpg", cap: "First light over the ranges" },
+  { src: `${BASE}/img/canning-convoy.jpg`, cap: "Canning Stock Route" },
+  { src: `${BASE}/img/mitchell-falls.jpg`, cap: "Mitchell Falls, Kimberley" },
+  { src: `${BASE}/img/patrol-beach-dune.jpg`, cap: "Yeagarup Dunes, Southwest" },
+  { src: `${BASE}/img/pilbara-ranges-aerial.jpg`, cap: "First light over the ranges" },
 ];
 const NAMES = ["Canning Stock Route", "Mitchell Falls", "Gibb River Road", "Bungle Bungles", "Wolfe Creek", "Cape Arid", "Lake Argyle", "Durba Springs"];
 const DAY = [
@@ -82,7 +83,7 @@ export default function Home() {
           <div className="head"><div><span className="kicker">Two ways to come along</span><h2 className="t-1">Drive it yourself, or <em>ride</em> with Tony.</h2></div><p className="lede">Same tracks, same camps, same campfire. The only question is who&apos;s behind the wheel.</p></div>
           <div className="ways">
             <Link className="way" href="/tours?type=tag">
-              <img src="/img/kimberley-creek-crossing.jpg" alt="Tag-along convoy crossing a Kimberley creek" loading="lazy" />
+              <img src={`${BASE}/img/kimberley-creek-crossing.jpg`} alt="Tag-along convoy crossing a Kimberley creek" loading="lazy" />
               <div className="in">
                 <span className="from">from ${isFinite(fromPrice("tag")) ? fromPrice("tag").toLocaleString() : "—"}</span>
                 <h3>Tag along</h3>
@@ -91,7 +92,7 @@ export default function Home() {
               </div>
             </Link>
             <Link className="way" href="/tours?type=ride">
-              <img src="/img/patrol-sand-tyre.jpg" alt="The Keogh's Adventures Patrol on the sand" loading="lazy" />
+              <img src={`${BASE}/img/patrol-sand-tyre.jpg`} alt="The Keogh's Adventures Patrol on the sand" loading="lazy" />
               <div className="in">
                 <span className="from">from ${isFinite(fromPrice("ride")) ? fromPrice("ride").toLocaleString() : "—"}</span>
                 <h3>Ride onboard</h3>
@@ -119,7 +120,7 @@ export default function Home() {
           <Carousel size="3" label="A day on tour" head={<><span className="kicker">A day out there</span><h2 className="t-1">From billy tea to a <em>billion</em> stars.</h2></>}>
             {DAY.map((m) => (
               <article key={m.time} className="moment">
-                <div className="ph"><img src={`/img/${m.img}.jpg`} alt="" loading="lazy" /></div>
+                <div className="ph"><img src={`${BASE}/img/${m.img}.jpg`} alt="" loading="lazy" /></div>
                 <span className="time">{m.time}</span>
                 <h3>{m.h}</h3>
                 <p>{m.p}</p>
@@ -132,7 +133,7 @@ export default function Home() {
       <section className="sec s-paper light">
         <div className="wrap tony">
           <div className="ph rv">
-            <img src="/img/tony-keogh.jpg" alt="Tony Keogh at a Kimberley lookout" loading="lazy" />
+            <img src={`${BASE}/img/tony-keogh.jpg`} alt="Tony Keogh at a Kimberley lookout" loading="lazy" />
             <div className="badge"><b>Every trip</b><small>Tony drives the lead car</small></div>
           </div>
           <div className="stack" style={{ gap: 24 }}>
@@ -162,7 +163,7 @@ export default function Home() {
       <section className="sec s-night2" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <div className="head" style={{ paddingTop: "clamp(56px,7vw,96px)" }}><div><span className="kicker">From the track</span><h2 className="t-1">Postcards from <em>out there</em></h2></div><a className="link" href={s.settings.instagram} target="_blank" rel="noopener">Follow on Instagram <Icon.arrow /></a></div>
-          <div className="collage">{COLLAGE.map((p) => <div key={p}><img src={`/img/${p}.jpg`} alt="" loading="lazy" /></div>)}</div>
+          <div className="collage">{COLLAGE.map((p) => <div key={p}><img src={`${BASE}/img/${p}.jpg`} alt="" loading="lazy" /></div>)}</div>
         </div>
       </section>
 
@@ -179,7 +180,7 @@ export default function Home() {
       </section>
 
       <section className="finale stars">
-        <img src="/img/canning-ranges.jpg" alt="" loading="lazy" />
+        <img src={`${BASE}/img/canning-ranges.jpg`} alt="" loading="lazy" />
         <div className="in">
           <span className="kicker">{tours.reduce((n, t) => n + t.departures.filter((d) => d.date >= TODAY && d.seats > d.booked).length, 0)} departures open</span>
           <h2 className="t-hero">Your seat in the <em>convoy</em> is waiting.</h2>

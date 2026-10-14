@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,7 +10,7 @@ import { SaveBar } from "@/components/admin/AdminShell";
 import type { Tour } from "@/lib/types";
 import { TODAY, addDays, depositOf, fmtShort, money, uid } from "@/lib/utils";
 
-const LIBRARY = ["canning-convoy", "canning-red-dune", "canning-track", "canning-ranges", "pilbara-ranges-aerial", "mitchell-falls", "bell-gorge", "manning-gorge", "windjana-gorge", "emma-gorge-falls", "kimberley-waterfall", "galvans-gorge-swim", "lake-argyle-sunset-swim", "tunnel-creek-wading", "bungle-bungles-chasm", "wolfe-creek-crater", "kimberley-creek-crossing", "bunda-cliffs", "coastal-track", "beach-convoy", "dunes-group", "patrol-beach-dune", "patrol-sand-tyre", "karri-forest-emu"].map((p) => `/img/${p}.jpg`);
+const LIBRARY = ["canning-convoy", "canning-red-dune", "canning-track", "canning-ranges", "pilbara-ranges-aerial", "mitchell-falls", "bell-gorge", "manning-gorge", "windjana-gorge", "emma-gorge-falls", "kimberley-waterfall", "galvans-gorge-swim", "lake-argyle-sunset-swim", "tunnel-creek-wading", "bungle-bungles-chasm", "wolfe-creek-crater", "kimberley-creek-crossing", "bunda-cliffs", "coastal-track", "beach-convoy", "dunes-group", "patrol-beach-dune", "patrol-sand-tyre", "karri-forest-emu"].map((p) => `${BASE}/img/${p}.jpg`);
 const lines = (a: string[]) => a.join("\n");
 const unlines = (s: string) => s.split("\n").map((x) => x.trim()).filter(Boolean);
 const clone = <T,>(o: T): T => JSON.parse(JSON.stringify(o));

@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 import type { Metadata, Viewport } from "next";
 import { Archivo, Hanken_Grotesk, Instrument_Serif } from "next/font/google";
 import { StoreProvider } from "@/lib/store";
@@ -21,10 +22,10 @@ export const metadata: Metadata = {
     type: "website", locale: "en_AU", siteName: "Keogh's Adventures", url: SITE_URL,
     title: "Keogh's Adventures · 4WD tours across Western Australia",
     description: "Small-group tag-along and ride-onboard 4WD tours to the most remote corners of WA.",
-    images: [{ url: "/img/canning-convoy.jpg", width: 1300, height: 1260, alt: "Keogh's Adventures convoy on the Canning Stock Route" }],
+    images: [{ url: `${BASE}/img/canning-convoy.jpg`, width: 1300, height: 1260, alt: "Keogh's Adventures convoy on the Canning Stock Route" }],
   },
-  twitter: { card: "summary_large_image", images: ["/img/canning-convoy.jpg"] },
-  icons: { icon: "/img/logo.png", apple: "/img/logo.png" },
+  twitter: { card: "summary_large_image", images: [`${BASE}/img/canning-convoy.jpg`] },
+  icons: { icon: `${BASE}/img/logo.png`, apple: `${BASE}/img/logo.png` },
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#100D0A" };
 

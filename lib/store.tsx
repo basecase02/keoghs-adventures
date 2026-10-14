@@ -8,7 +8,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { SEED } from "./seed";
 import type { SeedData } from "./types";
 
-const KEY = "ka-next-v3";
+const KEY = "ka-next-v4";
 const clone = <T,>(o: T): T => JSON.parse(JSON.stringify(o));
 
 interface StoreCtx {

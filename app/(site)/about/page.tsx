@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon } from "@/lib/icons";
@@ -10,28 +11,28 @@ export const metadata: Metadata = {
 
 const SPEC = [["1,400 km", "fuel range"], ["3", "guest seats"], ["95 L", "fridge on board"], ["Starlink", "every evening"]];
 const ACCRED = [
-  ["/img/badge-quality-tourism.png", "Quality Tourism Accredited", "Accredited through the Australian Tourism Industry Council."],
-  ["/img/badge-sustainable.png", "Sustainable Tourism", "Leave-no-trace camping and real support for remote stores and stations."],
-  ["/img/badge-emissions.png", "Emissions reduction", "Part of the Tourism Emissions Reduction program with Carbon Halo."],
+  [`${BASE}/img/badge-quality-tourism.png`, "Quality Tourism Accredited", "Accredited through the Australian Tourism Industry Council."],
+  [`${BASE}/img/badge-sustainable.png`, "Sustainable Tourism", "Leave-no-trace camping and real support for remote stores and stations."],
+  [`${BASE}/img/badge-emissions.png`, "Emissions reduction", "Part of the Tourism Emissions Reduction program with Carbon Halo."],
 ];
 
 export default function AboutPage() {
   return (
     <>
       <section className="phead-split">
-        <img className="blur" src="/img/tony-group-lookout.jpg" alt="" />
+        <img className="blur" src={`${BASE}/img/tony-group-lookout.jpg`} alt="" />
         <div className="wrap">
           <div className="copy">
             <div className="crumbs"><Link href="/">Home</Link><span>/</span><span>About</span></div>
             <h1 className="t-hero">Always smiling. <em>Always</em> moving.</h1>
             <p>The man in the lead car, and why he does it.</p>
           </div>
-          <div className="frame"><img src="/img/tony-group-lookout.jpg" alt="Tony Keogh with guests at a lookout" /></div>
+          <div className="frame"><img src={`${BASE}/img/tony-group-lookout.jpg`} alt="Tony Keogh with guests at a lookout" /></div>
         </div>
       </section>
 
       <section className="sec s-paper light"><div className="wrap tony" style={{ alignItems: "start" }}>
-        <div className="ph"><img src="/img/tony-keogh.jpg" alt="Tony Keogh" /><div className="badge"><b>Tony Keogh</b><small>Owner · lead guide</small></div></div>
+        <div className="ph"><img src={`${BASE}/img/tony-keogh.jpg`} alt="Tony Keogh" /><div className="badge"><b>Tony Keogh</b><small>Owner · lead guide</small></div></div>
         <div className="prose">
           <span className="kicker">Tony&apos;s story</span>
           <h2 className="t-1">Built on <em>challenges</em>.</h2>
@@ -45,7 +46,7 @@ export default function AboutPage() {
       <section className="sec s-night topo"><div className="wrap">
         <div className="head"><div><span className="kicker">The rig</span><h2 className="t-1">The Keogh&apos;s <em>Patrol</em></h2></div><p className="lede">Built for ride-onboard guests and for leading convoys through the hardest country in the state.</p></div>
         <div className="grid cols-2" style={{ alignItems: "center", gap: 28 }}>
-          <img src="/img/patrol-beach-dune.jpg" alt="The Keogh's Adventures Patrol on a coastal dune" style={{ borderRadius: 22, aspectRatio: "4/3", objectFit: "cover", width: "100%" }} loading="lazy" />
+          <img src={`${BASE}/img/patrol-beach-dune.jpg`} alt="The Keogh's Adventures Patrol on a coastal dune" style={{ borderRadius: 22, aspectRatio: "4/3", objectFit: "cover", width: "100%" }} loading="lazy" />
           <div className="spec" style={{ gridTemplateColumns: "1fr 1fr" }}>{SPEC.map(([b, s]) => <div key={s}><b>{b}</b><span>{s}</span></div>)}</div>
         </div>
       </div></section>
@@ -56,7 +57,7 @@ export default function AboutPage() {
       </div></section>
 
       <section className="finale stars">
-        <img src="/img/canning-convoy.jpg" alt="" loading="lazy" />
+        <img src={`${BASE}/img/canning-convoy.jpg`} alt="" loading="lazy" />
         <div className="in"><h2 className="t-hero">Ready to come <em>along</em>?</h2><Link className="btn btn-primary btn-lg" href="/tours">See tours and dates <Icon.arrow /></Link></div>
       </section>
     </>

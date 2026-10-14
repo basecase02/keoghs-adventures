@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
@@ -59,7 +60,7 @@ export default function WebsiteAdmin() {
       <details className="acc">
         <summary><span><b>Trip news</b><small>{d.posts.length} stories</small></span></summary>
         <div className="body">
-          <button className="add" onClick={() => set({ posts: [{ id: uid("p"), title: "", date: TODAY, cover: "/img/canning-convoy.jpg", excerpt: "", body: "" }, ...d.posts] })}>+ Write a new story</button>
+          <button className="add" onClick={() => set({ posts: [{ id: uid("p"), title: "", date: TODAY, cover: `${BASE}/img/canning-convoy.jpg`, excerpt: "", body: "" }, ...d.posts] })}>+ Write a new story</button>
           {d.posts.map((p, i) => (
             <div key={p.id} className="itemrow">
               <div className="rowtop"><b>{p.title || "New story"}</b><button className="rm" onClick={() => removeAt("posts", i)}>Remove</button></div>

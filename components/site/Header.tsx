@@ -1,4 +1,5 @@
 "use client";
+import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,7 +32,7 @@ export default function Header() {
       <header className={`hdr ${scrolled ? "scrolled" : ""} ${solid ? "solid" : ""}`}>
         {st.announcementOn && st.announcement && <Link className="strip" href="/tours" dangerouslySetInnerHTML={{ __html: st.announcement }} />}
         <div className="wrap bar">
-          <Link className="logo-link" href="/" aria-label="Keogh's Adventures home"><img src="/img/logo.png" alt="Keogh's Adventures" width={120} height={44} /></Link>
+          <Link className="logo-link" href="/" aria-label="Keogh's Adventures home"><img src={`${BASE}/img/logo.png`} alt="Keogh's Adventures" width={120} height={44} /></Link>
           <nav aria-label="Main">
             <ul className="menu">
               <li className={`has-mega ${megaOff ? "off" : ""}`} onMouseLeave={() => setMegaOff(false)} onClick={(e) => { if ((e.target as HTMLElement).closest("a")) { setMegaOff(true); (document.activeElement as HTMLElement)?.blur(); } }}>
@@ -67,8 +68,8 @@ export default function Header() {
       </header>
 
       <div className={`mnav ${open ? "open" : ""}`} aria-hidden={!open} role="dialog" aria-label="Menu">
-        <img src="/img/canning-red-dune.jpg" alt="" />
-        <div className="top"><img src="/img/logo.png" alt="Keogh's Adventures" /><button className="x" aria-label="Close menu" onClick={() => setOpen(false)}><Icon.close /></button></div>
+        <img src={`${BASE}/img/canning-red-dune.jpg`} alt="" />
+        <div className="top"><img src={`${BASE}/img/logo.png`} alt="Keogh's Adventures" /><button className="x" aria-label="Close menu" onClick={() => setOpen(false)}><Icon.close /></button></div>
         <ul>
           <li><Link href="/">Home</Link></li>
           <li><Link href="/tours">Tours <small>{tours.length} trips</small></Link></li>
