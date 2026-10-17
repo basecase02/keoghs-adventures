@@ -10,7 +10,7 @@
     "audit": "npm audit --omit=dev --audit-level=high"
   },
   "dependencies": {
-    "next": "^15.5.28",
+    "next": "^16.4.0",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
