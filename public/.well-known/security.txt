@@ -1,0 +1,6 @@
+# Security contact for Keogh's Adventures (RFC 9116)
+Contact: mailto:tony@keoghsadventures.com
+Expires: 2027-10-17T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://keoghsadventures.com/.well-known/security.txt
+Policy: https://keoghsadventures.com/privacy

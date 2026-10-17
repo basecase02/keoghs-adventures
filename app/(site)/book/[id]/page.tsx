@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { useUI } from "@/lib/ui";
 import { Icon } from "@/lib/icons";
+import { DEMO_MODE, TEST_CARD } from "@/lib/base";
 import type { TravelStyle } from "@/lib/types";
 import { isEmail, isName, isPhone, validate, TODAY, addDays, depositOf, fmtDate, fmtDay, fmtShort, lowestPrice, money, nextDeparture, seatsClass, seatsLeft, seatsText, typeLabel, uid } from "@/lib/utils";
 
@@ -25,11 +26,12 @@ function BookInner() {
   const [b, setB] = useState<Draft | null>(null);
   const [busy, setBusy] = useState(false);
   const [errs, setErrs] = useState<Record<string, string>>({});
+  const [hp, setHp] = useState(""); // spam trap: real people never see or fill this
 
   useEffect(() => {
     if (!t || b) return;
     const dep = t.departures.find((d) => d.id === q.get("dep") && seatsLeft(d) > 0) || nextDeparture(t);
-    setB({ step: 1, depId: dep?.id || "", style: t.types.includes("tag") ? "tag" : "ride", guests: 2, vehicles: 1, pay: "deposit", first: "", last: "", email: "", phone: "", vehicle: "", privacy: false, terms: false, marketing: false, card: "" });
+    setB({ step: 1, depId: dep?.id || "", style: t.types.includes("tag") ? "tag" : "ride", guests: 2, vehicles: 1, pay: "deposit", first: "", last: "", email: "", phone: "", vehicle: "", privacy: false, terms: false, marketing: false, card: DEMO_MODE ? "4242 4242 4242 4242" : "" });
   }, [t, b, q]);
   useEffect(() => { window.scrollTo({ top: 0 }); }, [b?.step]);
 
@@ -53,6 +55,7 @@ function BookInner() {
   };
   const toPayment = (e: React.FormEvent) => {
     e.preventDefault();
+    if (hp) return; // a bot filled the hidden field
     const e2 = validate(b, {
       first: (v) => (!v.trim() ? "Please add your first name." : !isName(v) ? "Please use letters only." : null),
       last: (v) => (!v.trim() ? "Please add your last name." : !isName(v) ? "Please use letters only." : null),
@@ -67,6 +70,8 @@ function BookInner() {
     set({ step: 3 });
   };
   const payNow = () => {
+    // Demo only: refuse anything but Stripe's test card, so a real card number can never be entered here.
+    if (DEMO_MODE && b.card.replace(/\D/g, "") !== TEST_CARD) return toast("Demo only: please use the test card 4242 4242 4242 4242. Never enter a real card.", "bad");
     setBusy(true);
     setTimeout(() => {
       let ref = "";
@@ -131,17 +136,19 @@ function BookInner() {
 
           {b.step === 2 && <form className="stack" style={{ gap: 16 }} noValidate onSubmit={toPayment}>
             <div className="box"><h2>Lead traveller</h2>
+              {DEMO_MODE && <div className="note"><Icon.info /><span><b>Prototype.</b> Nothing you type here is sent to a server. Please use made-up details, not real ones.</span></div>}
+              <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hp" value={hp} onChange={(e) => setHp(e.target.value)} />
               <div className="form">
-                <div className="field"><label htmlFor="b-first">First name</label><input type="text" id="b-first" {...inv("first")} value={b.first} onChange={(e) => set({ first: e.target.value })} autoComplete="given-name" /></div>
-                <div className="field"><label htmlFor="b-last">Last name</label><input type="text" id="b-last" {...inv("last")} value={b.last} onChange={(e) => set({ last: e.target.value })} autoComplete="family-name" /></div>
-                <div className="field"><label htmlFor="b-email">Email</label><input type="email" inputMode="email" id="b-email" {...inv("email")} value={b.email} onChange={(e) => set({ email: e.target.value })} autoComplete="email" /></div>
-                <div className="field"><label htmlFor="b-phone">Mobile</label><input type="tel" id="b-phone" {...inv("phone")} value={b.phone} onChange={(e) => set({ phone: e.target.value })} autoComplete="tel" placeholder="04xx xxx xxx" /></div>
-                {b.style === "tag" && <div className="field full"><label htmlFor="bv">Vehicle <span className="muted" style={{ fontWeight: 400 }}>(optional)</span></label><input type="text" id="bv" value={b.vehicle} onChange={(e) => set({ vehicle: e.target.value })} placeholder="e.g. LandCruiser 79, 2019" /></div>}
+                <div className="field"><label htmlFor="b-first">First name</label><input type="text" id="b-first" maxLength={60} {...inv("first")} value={b.first} onChange={(e) => set({ first: e.target.value })} autoComplete="given-name" /><Err k="first" /></div>
+                <div className="field"><label htmlFor="b-last">Last name</label><input type="text" id="b-last" maxLength={60} {...inv("last")} value={b.last} onChange={(e) => set({ last: e.target.value })} autoComplete="family-name" /><Err k="last" /></div>
+                <div className="field"><label htmlFor="b-email">Email</label><input type="email" inputMode="email" id="b-email" maxLength={254} {...inv("email")} value={b.email} onChange={(e) => set({ email: e.target.value })} autoComplete="email" /><Err k="email" /></div>
+                <div className="field"><label htmlFor="b-phone">Mobile</label><input type="tel" id="b-phone" maxLength={20} {...inv("phone")} value={b.phone} onChange={(e) => set({ phone: e.target.value })} autoComplete="tel" placeholder="04xx xxx xxx" /><Err k="phone" /></div>
+                {b.style === "tag" && <div className="field full"><label htmlFor="bv">Vehicle <span className="muted" style={{ fontWeight: 400 }}>(optional)</span></label><input type="text" id="bv" maxLength={80} value={b.vehicle} onChange={(e) => set({ vehicle: e.target.value })} placeholder="e.g. LandCruiser 79, 2019" /></div>}
               </div>
               <p className="small muted">We only ask for what we need to run your trip. Other travellers&apos; details and the medical questionnaire come later, through a secure link.</p>
             </div>
             <div className="consent">
-              <label className="check"><input type="checkbox" id="b-privacy" checked={b.privacy} onChange={(e) => set({ privacy: e.target.checked })} /> <span>I&apos;ve read the <Link href="/contact">privacy collection notice</Link> and agree to Keogh&apos;s Adventures using these details to manage my booking.</span></label><Err k="privacy" />
+              <label className="check"><input type="checkbox" id="b-privacy" checked={b.privacy} onChange={(e) => set({ privacy: e.target.checked })} /> <span>I&apos;ve read the <Link href="/privacy" target="_blank" rel="noopener noreferrer">privacy collection notice</Link> and agree to Keogh&apos;s Adventures using these details to manage my booking.</span></label><Err k="privacy" />
               <label className="check"><input type="checkbox" id="b-terms" checked={b.terms} onChange={(e) => set({ terms: e.target.checked })} /> <span>I accept the <Link href="/contact">booking terms</Link>, including the deposit and cancellation policy.</span></label><Err k="terms" />
               <label className="check"><input type="checkbox" checked={b.marketing} onChange={(e) => set({ marketing: e.target.checked })} /> <span>Email me when new dates are released. Optional, and you can unsubscribe any time.</span></label>
               <p className="cn">Your details are stored in Australia, never sold, and only used for this trip. You can ask to see, correct or delete them at any time.</p>
@@ -156,10 +163,10 @@ function BookInner() {
             </div></div>
             <div className="box"><h2>Card</h2>
               <div className="card-box">
-                <div className="field"><label htmlFor="cn">Card number</label><input type="text" id="cn" inputMode="numeric" autoComplete="cc-number" placeholder="1234 1234 1234 1234" value={b.card} onChange={(e) => set({ card: e.target.value })} /></div>
-                <div className="form"><div className="field"><label htmlFor="ce">Expiry</label><input type="text" id="ce" autoComplete="cc-exp" placeholder="MM / YY" /></div><div className="field"><label htmlFor="cc">Security code</label><input type="text" id="cc" autoComplete="cc-csc" placeholder="CVC" /></div></div>
+                <div className="field"><label htmlFor="cn">Card number</label><input type="text" id="cn" inputMode="numeric" autoComplete="off" maxLength={23} placeholder="4242 4242 4242 4242" value={b.card} onChange={(e) => set({ card: e.target.value })} /></div>
+                <div className="form"><div className="field"><label htmlFor="ce">Expiry</label><input type="text" id="ce" autoComplete="off" maxLength={7} placeholder="MM / YY" /></div><div className="field"><label htmlFor="cc">Security code</label><input type="text" id="cc" autoComplete="off" maxLength={4} placeholder="CVC" /></div></div>
               </div>
-              <div className="secure"><Icon.lock /><span>Card details go straight to Stripe and are never seen or stored by us. Prototype only: no card is charged.</span></div>
+              <div className="secure"><Icon.lock /><span>{DEMO_MODE ? "Demo mode: no card is charged. Use the Stripe test card 4242 4242 4242 4242 and never a real card." : "Card details go straight to Stripe and are never seen or stored by us."}</span></div>
             </div>
             <div className="row between"><button type="button" className="link" onClick={() => set({ step: 2 })}>Back</button><button className="btn btn-primary btn-lg" disabled={busy} onClick={payNow}>{busy ? "Processing…" : `Pay ${money(due, 2)}`}</button></div>
           </>}

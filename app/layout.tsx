@@ -29,13 +29,39 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#100D0A" };
 
+// Only this site may provide scripts, styles, fonts, images, video and form targets.
+// During the build, scripts/harden-csp.mjs replaces 'unsafe-inline' for scripts with the exact SHA-256 hashes of
+// the page's own inline scripts, so injected scripts can't run. (Styles still allow inline: they can't execute code.)
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "media-src 'self'",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 // Show the intro loader once per browser session; set before paint so return visits never flash it.
-const seenScript = `try{if(sessionStorage.getItem('ka-seen'))document.documentElement.dataset.seen='1';else sessionStorage.setItem('ka-seen','1')}catch(e){}`;
+// Clickjacking defence for hosts that can't send X-Frame-Options (e.g. GitHub Pages): the page stays blank
+// (see html:not([data-top]) in globals.css) unless it is the top window; if it is framed, it breaks out.
+const seenScript = `try{if(self===top){document.documentElement.dataset.top='1'}else{top.location.replace(self.location.href)}}catch(e){}try{if(sessionStorage.getItem('ka-seen'))document.documentElement.dataset.seen='1';else sessionStorage.setItem('ka-seen','1')}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-AU" className={`${display.variable} ${serif.variable} ${body.variable}`} suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: seenScript }} /></head>
+      <head>
+        {/* Security policy for the live site (dev server needs eval + websockets, so it's production only).
+            Add https://js.stripe.com and https://api.stripe.com here when Stripe is connected. */}
+        {process.env.NODE_ENV === "production" && <meta httpEquiv="Content-Security-Policy" content={CSP} />}
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <script dangerouslySetInnerHTML={{ __html: seenScript }} />
+      </head>
       <body>
         <StoreProvider>
           <UIProvider>{children}</UIProvider>

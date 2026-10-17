@@ -5,3 +5,10 @@ out
 next-env.d.ts
 .DS_Store
 out
+
+# secrets: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key

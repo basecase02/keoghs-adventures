@@ -14,5 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/news`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     ...SEED.posts.map((p) => ({ url: `${SITE_URL}/news/${p.id}`, lastModified: new Date(p.date), priority: 0.4 })),
     { url: `${SITE_URL}/contact`, lastModified: now, priority: 0.6 },
+    { url: `${SITE_URL}/privacy`, lastModified: now, priority: 0.3 },
   ];
 }

@@ -1,4 +1,5 @@
 "use client";
+import { safeInlineHtml, safeMailto, safeTel } from "@/lib/safeHtml";
 import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -25,12 +26,11 @@ export default function Header() {
   const tours = s.tours.filter((t) => t.published);
   const minPrice = (k: "tag" | "ride") => Math.min(...tours.map((t) => t.price[k] || Infinity));
   const st = s.settings;
-  const tel = st.phone.replace(/\s/g, "");
 
   return (
     <>
       <header className={`hdr ${scrolled ? "scrolled" : ""} ${solid ? "solid" : ""}`}>
-        {st.announcementOn && st.announcement && <Link className="strip" href="/tours" dangerouslySetInnerHTML={{ __html: st.announcement }} />}
+        {st.announcementOn && st.announcement && <Link className="strip" href="/tours" dangerouslySetInnerHTML={{ __html: safeInlineHtml(st.announcement) }} />}
         <div className="wrap bar">
           <Link className="logo-link" href="/" aria-label="Keogh's Adventures home"><img src={`${BASE}/img/logo.png`} alt="Keogh's Adventures" width={120} height={44} /></Link>
           <nav aria-label="Main">
@@ -60,7 +60,7 @@ export default function Header() {
             </ul>
           </nav>
           <div className="hdr-right">
-            <a className="call" href={`tel:${tel}`}><Icon.phone />{st.phone}</a>
+            <a className="call" href={safeTel(st.phone)}><Icon.phone />{st.phone}</a>
             <Link className="btn btn-primary" href="/tours">Book a trip</Link>
             <button className="burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen(true)}><i><span /><span /></i></button>
           </div>
@@ -79,8 +79,8 @@ export default function Header() {
           <li><Link href="/contact">Contact</Link></li>
         </ul>
         <div className="foot">
-          <a className="c" href={`tel:${tel}`}><Icon.phone />{st.phone}</a>
-          <a className="c" href={`mailto:${st.email}`}><Icon.mail />{st.email}</a>
+          <a className="c" href={safeTel(st.phone)}><Icon.phone />{st.phone}</a>
+          <a className="c" href={safeMailto(st.email)}><Icon.mail />{st.email}</a>
           <Link className="btn btn-primary btn-lg btn-block" href="/tours">Book a trip <Icon.arrow /></Link>
         </div>
       </div>

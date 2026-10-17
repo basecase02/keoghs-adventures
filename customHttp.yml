@@ -1,0 +1,23 @@
+# AWS Amplify Hosting: security headers sent with every response.
+# (GitHub Pages can't send headers; this takes effect once the site is on Amplify.)
+# Each page also carries its own strict, hash-based script policy (see scripts/harden-csp.mjs);
+# the policy below adds what only a header can do, such as frame-ancestors.
+customHeaders:
+  - pattern: '**/*'
+    headers:
+      - key: Strict-Transport-Security
+        value: 'max-age=63072000; includeSubDomains; preload'
+      - key: X-Content-Type-Options
+        value: nosniff
+      - key: X-Frame-Options
+        value: DENY
+      - key: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - key: Permissions-Policy
+        value: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=(), payment=(self)'
+      - key: Cross-Origin-Opener-Policy
+        value: same-origin
+      - key: Cross-Origin-Resource-Policy
+        value: same-origin
+      - key: Content-Security-Policy
+        value: "default-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'"

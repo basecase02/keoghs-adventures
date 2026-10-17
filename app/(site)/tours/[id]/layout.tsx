@@ -42,7 +42,7 @@ export default async function TourLayout({ children, params }: { children: React
   };
   return (
     <>
-      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
+      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />}
       <Suspense>{children}</Suspense>
     </>
   );

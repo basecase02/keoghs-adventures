@@ -34,6 +34,10 @@ export default function TripEditor() {
     const types = (["tag", "ride"] as const).filter((k) => d.price[k]);
     if (!d.name.trim()) return toast("Please give the trip a name.", "bad");
     if (!types.length) return toast("Please add at least one price.", "bad");
+    const prices = [d.price.tag, d.price.ride].filter((x): x is number => x != null);
+    if (prices.some((x) => !Number.isFinite(x) || x < 0 || x > 100000)) return toast("Prices must be between $0 and $100,000.", "bad");
+    if (!Number.isFinite(d.days) || d.days < 1 || d.days > 365) return toast("Number of days must be between 1 and 365.", "bad");
+    if (d.departures.some((x) => !/^\d{4}-\d{2}-\d{2}$/.test(x.date) || x.seats < x.booked || x.seats > 500)) return toast("Check the dates and seat numbers: seats can't be fewer than already booked.", "bad");
     const next = { ...d, short: d.short || d.name, types: [...types], nights: Math.max(0, d.days - 1), itinerary: [...d.itinerary].sort((a, b) => a.day - b.day) };
     update((st) => { st.tours = st.tours.map((t) => (t.id === id ? next : t)); });
     setD(next); setDirty(false); toast("Saved. It's live on the website.");
@@ -50,7 +54,7 @@ export default function TripEditor() {
       <div className="ahead">
         <Link className="link small" href="/admin/tours" style={{ justifySelf: "start" }}>← All trips</Link>
         <h1>{d.name || "New trip"}</h1>
-        <p>Open a section, make your change, then press Save. <Link className="link" href={tourPath(id)} target="_blank">See it on the website</Link></p>
+        <p>Open a section, make your change, then press Save. <Link className="link" href={tourPath(id)} target="_blank" rel="noopener noreferrer">See it on the website</Link></p>
       </div>
 
       <div className="acard" style={{ gridTemplateColumns: "1fr auto", alignItems: "center" }}>

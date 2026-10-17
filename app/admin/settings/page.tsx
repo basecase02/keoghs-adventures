@@ -36,7 +36,7 @@ export default function SettingsPage() {
       <details className="acc" open>
         <summary><span><b>Your business details</b><small>Shown at the bottom of every page</small></span></summary>
         <div className="body form">{FIELDS.map(([k, l, type]) => (
-          <div key={k} className="field"><label htmlFor={`s-${k}`}>{l}</label><input id={`s-${k}`} type={type || "text"} value={String(d[k])} onChange={(e) => set({ [k]: e.target.value } as Partial<Settings>)} /></div>
+          <div key={k} className="field"><label htmlFor={`s-${k}`}>{l}</label><input id={`s-${k}`} type={type || "text"} maxLength={200} value={String(d[k])} onChange={(e) => set({ [k]: e.target.value } as Partial<Settings>)} /></div>
         ))}</div>
       </details>
 
@@ -66,7 +66,11 @@ export default function SettingsPage() {
         </div>
       </details>
 
-      {dirty && <SaveBar onSave={() => { update((st) => { st.settings = { ...d }; }); setDirty(false); toast("Settings saved"); }} onDiscard={() => { setD({ ...s.settings }); setDirty(false); }} />}
+      {dirty && <SaveBar onSave={() => {
+        const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, Math.round(Number.isFinite(n) ? n : lo)));
+        const clean = { ...d, depositPercent: clamp(d.depositPercent, 0, 100), balanceDueDays: clamp(d.balanceDueDays, 0, 365), maxGroup: clamp(d.maxGroup, 1, 50), reminderDays: clamp(d.reminderDays, 0, 365) };
+        update((st) => { st.settings = clean; }); setD(clean); setDirty(false); toast("Settings saved");
+      }} onDiscard={() => { setD({ ...s.settings }); setDirty(false); }} />}
     </>
   );
 }

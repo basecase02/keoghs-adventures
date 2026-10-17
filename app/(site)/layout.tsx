@@ -31,7 +31,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <>
       <link rel="preload" as="image" href={`${BASE}/img/hero-poster-sm.jpg`} media="(max-width: 820px)" fetchPriority="high" />
       <link rel="preload" as="image" href={`${BASE}/img/hero-poster.jpg`} media="(min-width: 821px)" fetchPriority="high" />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd).replace(/</g, "\\u003c") }} />
       <Loader />
       <Header />
       <main id="main">{children}</main>

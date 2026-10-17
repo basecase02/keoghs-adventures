@@ -38,7 +38,7 @@ export default function WebsiteAdmin() {
     <>
       <div className="ahead">
         <h1>Website</h1>
-        <p>Change the words on your website. Open a section, type, then press Save. <Link className="link" href="/" target="_blank">See the website</Link></p>
+        <p>Change the words on your website. Open a section, type, then press Save. <Link className="link" href="/" target="_blank" rel="noopener noreferrer">See the website</Link></p>
       </div>
 
       <details className="acc" open>

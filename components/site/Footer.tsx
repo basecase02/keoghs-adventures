@@ -1,4 +1,5 @@
 "use client";
+import { safeUrl, safeMailto, safeTel } from "@/lib/safeHtml";
 import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -35,20 +36,20 @@ export default function Footer() {
               <li><Link href="/about">About Tony</Link></li>
               <li><Link href="/news">Trip news</Link></li>
               <li><Link href="/contact">Booking terms</Link></li>
-              <li><Link href="/contact">Privacy policy</Link></li>
+              <li><Link href="/privacy">Privacy policy</Link></li>
             </ul>
           </nav>
           <div>
             <h4>Get in touch</h4>
             <ul>
-              <li><a href={`tel:${st.phone.replace(/\s/g, "")}`}>{st.phone}</a></li>
-              <li><a href={`mailto:${st.email}`}>{st.email}</a></li>
+              <li><a href={safeTel(st.phone)}>{st.phone}</a></li>
+              <li><a href={safeMailto(st.email)}>{st.email}</a></li>
               <li>{st.location}</li>
             </ul>
             <p className="small" style={{ marginTop: 18 }}>New dates go to subscribers first.</p>
             <form className="nl" onSubmit={(e) => { e.preventDefault(); toast("You're on the list. New dates land in your inbox first."); e.currentTarget.reset(); }}>
               <label className="sr" htmlFor="nl">Email</label>
-              <input id="nl" type="email" placeholder="Your email" required />
+              <input id="nl" type="email" maxLength={254} placeholder="Your email" required />
               <button className="btn btn-primary btn-sm" type="submit" aria-label="Subscribe"><Icon.arrow /></button>
             </form>
           </div>
@@ -56,7 +57,7 @@ export default function Footer() {
         <div className="bigword" aria-hidden="true">Keogh&apos;s</div>
         <div className="fbottom">
           <span>© 2026 {st.legalName} · ABN {st.abn}</span>
-          <span><a href={st.facebook} target="_blank" rel="noopener">Facebook</a> · <a href={st.instagram} target="_blank" rel="noopener">Instagram</a> · <Link href="/admin">Admin</Link></span>
+          <span><a href={safeUrl(st.facebook)} target="_blank" rel="noopener noreferrer">Facebook</a> · <a href={safeUrl(st.instagram)} target="_blank" rel="noopener noreferrer">Instagram</a> · <Link href="/admin">Admin</Link></span>
         </div>
       </div>
     </footer>

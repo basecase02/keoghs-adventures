@@ -1,4 +1,5 @@
 "use client";
+import { safeInlineHtml, safeUrl } from "@/lib/safeHtml";
 import { BASE } from "@/lib/base";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -49,7 +50,7 @@ export default function Home() {
         <div className="wrap hero-in">
           <div className="hero-copy">
             <span className="kicker" style={{ color: "var(--ochre)" }}>Small-group 4WD tours · Western Australia</span>
-            <h1 className="t-hero" dangerouslySetInnerHTML={{ __html: s.settings.heroTitle }} />
+            <h1 className="t-hero" dangerouslySetInnerHTML={{ __html: safeInlineHtml(s.settings.heroTitle) }} />
             <p>{s.settings.heroSub}</p>
           </div>
           <form className="finder" onSubmit={find} aria-label="Find a trip">
@@ -149,7 +150,7 @@ export default function Home() {
 
       <section className="sec s-night2" style={{ paddingTop: 0 }}>
         <div className="wrap">
-          <div className="head" style={{ paddingTop: "clamp(56px,7vw,96px)" }}><div><span className="kicker">From the track</span><h2 className="t-1">Postcards from <em>out there</em></h2></div><a className="link" href={s.settings.instagram} target="_blank" rel="noopener">Follow on Instagram <Icon.arrow /></a></div>
+          <div className="head" style={{ paddingTop: "clamp(56px,7vw,96px)" }}><div><span className="kicker">From the track</span><h2 className="t-1">Postcards from <em>out there</em></h2></div><a className="link" href={safeUrl(s.settings.instagram)} target="_blank" rel="noopener noreferrer">Follow on Instagram <Icon.arrow /></a></div>
           <div className="collage">{COLLAGE.map((p) => <div key={p}><img src={`${BASE}/img/${p}.jpg`} alt="" loading="lazy" /></div>)}</div>
         </div>
       </section>
